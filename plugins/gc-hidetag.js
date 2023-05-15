@@ -3,7 +3,6 @@ import * as fs from 'fs'
 let handler = async (m, { conn, text, participants, isOwner, isAdmin }) => {
 try {  
 let users = participants.map(u => conn.decodeJid(u.id))
-console.log(users)
 let q = m.quoted ? m.quoted : m || m.text || m.sender
 let c = m.quoted ? await m.getQuotedObj() : m.msg || m.text || m.sender
 let msg = conn.cMod(m.chat, generateWAMessageFromContent(m.chat, { [m.quoted ? q.mtype : 'extendedTextMessage']: m.quoted ? c.message[q.mtype] : { text: '' || c }}, { quoted: m, userJid: conn.user.id }), text || q.text, conn.user.jid, { mentions: users })
@@ -16,7 +15,6 @@ await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
 **/  
     
 let users = participants.map(u => conn.decodeJid(u.id))
-console.log(users)
 let quoted = m.quoted ? m.quoted : m
 let mime = (quoted.msg || quoted).mimetype || ''
 let isMedia = /image|video|sticker|audio/.test(mime)
@@ -38,7 +36,7 @@ conn.sendMessage(m.chat, {sticker: mediax, mentions: users}, { quoted: m })
 } else {
 await conn.relayMessage(m.chat, {extendedTextMessage:{text: `${masss}\n${htextos}\n`, ...{ contextInfo: { mentionedJid: users, externalAdReply: { thumbnail: imagen1, sourceUrl: 'https://github.com/BrunoSobrino/TheMystic-Bot-MD' }}}}}, {})
 }}}
-handler.command = /^(hidetag|notificar|notify)$/i
+handler.command = /^(hidetag|مخفي|notify)$/i
 handler.group = true
 handler.admin = true
 export default handler
